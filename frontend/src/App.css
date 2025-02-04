@@ -1,0 +1,143 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  color: #213a5e;
+  margin-top: 5px;
+}
+
+header {
+  background-color: #4c75af;
+  padding: 10px 0;
+  text-align: center;
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+}
+
+header nav ul {
+  list-style-type: none;
+  margin: 5px;
+  gap: 50px;
+  display: flex;
+}
+
+header nav li {
+  margin: 0;
+}
+
+header nav a {
+  background-color: white;
+  color: #4c75af;
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+header nav a:hover {
+  background-color: #ddd;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding: 20px;
+}
+
+.ProductForm, .ClientForm, .SalesForm {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 10px;
+}
+
+.ProductForm form, .ClientForm form, .SalesForm form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ProductForm label, .ClientForm label, .SalesForm label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.ProductForm input, .ClientForm input, .SalesForm input {
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.ProductForm input:focus, .ClientForm input:focus, .SalesForm input:focus {
+  outline: none;
+  border-color: #4c75af;
+}
+
+.ProductForm button, .ClientForm button, .SalesForm button{
+  background-color: #4c75af;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.ProductForm button:hover , .ClientForm button:hover, .SalesForm button:hover {
+  background-color: #4c75af;
+}
+
+.ProductForm p, .ClientForm p, .SalesForm p {
+  text-align: center;
+  font-weight: bold;
+  color: #4c75af;
+}
+
+.ProductList, .ClientList, .SalesList {
+  max-width: 800px;
+  margin: 20px 0;
+}
+
+.ProductList h1, .ClientList h1, .SalesList h1 {
+  font-size: 2rem;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.ProductList ul, .ClientList ul, .SalesList ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ProductList li, .ClientList li, .SalesList li {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ProductList p, .ClientList p, .SalesList p {
+  text-align: center;
+}
+
+.ProductList p.error, .ClientList p.error, .SalesList p.error {
+  color: #ff4d4d;
+}
+
+.ProductList p.success, .ClientList p.success, .SalesList p.success {
+  color: #4CAF50;
+}
