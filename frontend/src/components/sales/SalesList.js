@@ -9,7 +9,7 @@ const SalesList = () => {
   useEffect(() => {
     axios.get('http://localhost:5003/sales')
       .then((response) => {
-        setSales(response.data);
+        setSales(Array.isArray(response.data) ? response.data : []);
         setError(null);
       })
       .catch((error) => {
@@ -28,7 +28,7 @@ const SalesList = () => {
         <p>Carregando vendas...</p>
       ) : error ? (
         <p className="error">{error}</p>
-      ) : sales.length === 0 ? (
+      ) : (!Array.isArray(sales) || sales.length === 0) ? (
         <p>Não há vendas registradas no momento.</p>
       ) : (
         <ul>

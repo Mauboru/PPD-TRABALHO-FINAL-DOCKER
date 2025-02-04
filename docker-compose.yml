@@ -4,11 +4,6 @@ services:
     container_name: products_service
     ports:
       - "5001:5001"
-    environment:
-      - DB_HOST=products_db
-      - DB_USER=root
-      - DB_PASSWORD=root
-      - DB_NAME=products_db
     depends_on:
       - products_db
 
@@ -26,11 +21,6 @@ services:
     container_name: clients_service
     ports:
       - "5002:5002"
-    environment:
-      - DB_HOST=clients_db
-      - DB_USER=root
-      - DB_PASSWORD=root
-      - DB_NAME=clients_db
     depends_on:
       - clients_db
 
@@ -48,9 +38,6 @@ services:
     container_name: sales_service
     ports:
       - "5003:5003"
-    environment:
-      - MONGO_HOST=sales_db
-      - MONGO_PORT=27017
     depends_on:
       - sales_db
 
@@ -66,9 +53,9 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - products
-      - clients
-      - sales
+        - products
+        - clients
+        - sales
 
 volumes:
   products_data:

@@ -1,20 +1,18 @@
 from typing import List
 from fastapi import Depends, FastAPI
-from fastapi.middleware.cors import CORSMiddleware  # Importando o middleware CORS
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from requests import Session
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# Definindo o banco de dados
 SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:root@products_db/products_db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"charset": "utf8mb4"})
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-# Definindo o modelo Produto
 class Product(Base):
     __tablename__ = 'products'
 
@@ -25,53 +23,47 @@ class Product(Base):
 
 Base.metadata.create_all(bind=engine)
 
-# Criando o aplicativo FastAPI
 app = FastAPI()
 
-# Configuração de CORS
 origins = [
-    "http://localhost:3000",  # Substitua pelo domínio do seu frontend se for diferente
+    "http://localhost:3000", 
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Permitir apenas o frontend local
+    allow_origins=origins, 
     allow_credentials=True,
-    allow_methods=["*"],  # Permitir todos os métodos HTTP
-    allow_headers=["*"],  # Permitir todos os cabeçalhos
+    allow_methods=["*"],
+    allow_headers=["*"],  
 )
 
-# Modelo de dados do Produto (para input e output)
 class ProductCreate(BaseModel):
     name: str
     description: str
     price: int
 
-class ProductInDB(ProductCreate):
+class ProductInproducts_db(ProductCreate):
     id: int
 
     class Config:
         orm_mode = True
 
-# Função para obter a sessão do banco
-def get_db():
-    db = SessionLocal()
+def get_products_db():
+    products_db = SessionLocal()
     try:
-        yield db
+        yield products_db
     finally:
-        db.close()
+        products_db.close()
 
-# Endpoint para criar um novo produto
-@app.post("/products/", response_model=ProductInDB)
-def create_product(product: ProductCreate, db: Session = Depends(get_db)):
-    db_product = Product(name=product.name, description=product.description, price=product.price)
-    db.add(db_product)
-    db.commit()
-    db.refresh(db_product)
-    return db_product
+@app.post("/products/", response_model=ProductInproducts_db)
+def create_product(product: ProductCreate, products_db: Session = Depends(get_products_db)):
+    products_db_product = Product(name=product.name, description=product.description, price=product.price)
+    products_db.add(products_db_product)
+    products_db.commit()
+    products_db.refresh(products_db_product)
+    return products_db_product
 
-# Endpoint para listar todos os produtos
-@app.get("/products/", response_model=List[ProductInDB])
-def get_products(db: Session = Depends(get_db)):
-    products = db.query(Product).all()
+@app.get("/products/", response_model=List[ProductInproducts_db])
+def get_products(products_db: Session = Depends(get_products_db)):
+    products = products_db.query(Product).all()
     return products
